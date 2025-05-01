@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 //This class represents the process as a thread with a PID and burst time. This determines how long the process needs the CPU for.
+class ProcessThread extends Thread {   
     int pid, burstTime;
 
     public ProcessThread(int pid, int burstTime) {
@@ -19,6 +20,7 @@ import java.util.concurrent.*;
         System.out.println("Process " + pid + " finished.");
     }
 }
+
 
 // Producer-Consumer Problem
 /* BoundedBuffer simulates a fixed-size buffer shared between producer and consumer threads */

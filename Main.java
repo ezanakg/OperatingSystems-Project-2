@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-class ProcessThread extends Thread {
+//This class represents the process as a thread with a PID and burst time. This determines how long the process needs the CPU for.
     int pid, burstTime;
 
     public ProcessThread(int pid, int burstTime) {
@@ -11,8 +11,9 @@ class ProcessThread extends Thread {
     }
 
     public void run() {
+        // This portion logs when the process starts 
         System.out.println("Process " + pid + " started.");
-        try {
+        try { // This simulates the process that is ran on CPU by making the thread sleep based on the burst time 
             Thread.sleep(burstTime * 1000);
         } catch (InterruptedException e) {}
         System.out.println("Process " + pid + " finished.");
@@ -20,6 +21,7 @@ class ProcessThread extends Thread {
 }
 
 // Producer-Consumer Problem
+/* BoundedBuffer simulates a fixed-size buffer shared between producer and consumer threads */
 class BoundedBuffer {
     Queue<Integer> buffer = new LinkedList<>();
     int capacity = 5;
@@ -49,7 +51,7 @@ class BoundedBuffer {
         return item;
     }
 }
-
+// Producer thread simulates a process that generates data that is then placed in the shared buffer
 class Producer extends Thread {
     BoundedBuffer buffer;
 
@@ -66,7 +68,7 @@ class Producer extends Thread {
         } catch (InterruptedException e) {}
     }
 }
-
+// This is the process that retrieves and processes data that is in the shared buffer.
 class Consumer extends Thread {
     BoundedBuffer buffer;
 
@@ -88,7 +90,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("Starting process threads...");
 
-        // Read from processes.txt
+        // Holds the list for all of the procress threads in the file.
         List<ProcessThread> threads = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("processes.txt"))) {
             String line;
